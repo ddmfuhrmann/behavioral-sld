@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "behavioral-sld",
+  "metadata": {
+    "description": "Behavioral SLD — study-driven learning workflow for Claude Code"
+  },
+  "owner": {
+    "name": "Daniel Fuhrmann"
+  },
+  "plugins": [
+    {
+      "name": "sld",
+      "description": "Study-driven learning workflow: plan → learn → evaluate, with a staged progress checklist, socratic sessions, and consolidation in the learner's own vocabulary",
+      "category": "learning",
+      "source": {
+        "source": "github",
+        "repo": "ddmfuhrmann/behavioral-sld"
+      }
+    }
+  ]
+}

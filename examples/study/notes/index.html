@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consolidated — SQL Window Functions</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --text: #1f2430; --muted: #6b7280;
+    --accent: #2563eb; --warn-bg: #fef3c7; --warn-border: #f59e0b;
+    --done: #16a34a; --started: #d97706; --todo: #9ca3af; --border: #e5e7eb;
+    --code-bg: #f1f3f7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161c; --panel: #1c1f27; --text: #e6e8ee; --muted: #9aa1ad;
+      --accent: #7aa2ff; --warn-bg: #3a2f14; --warn-border: #d97706;
+      --done: #4ade80; --started: #fbbf24; --todo: #6b7280; --border: #2a2e38;
+      --code-bg: #232734;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  .layout { display: flex; min-height: 100vh; }
+  nav { width: 260px; flex-shrink: 0; padding: 24px 16px; border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  nav h1 { font-size: 15px; margin: 0 0 16px; }
+  nav .stage { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 0 6px; }
+  nav a, nav .pending { display: block; padding: 4px 8px; border-radius: 6px; font-size: 14px; text-decoration: none; color: var(--text); }
+  nav a:hover { background: var(--code-bg); }
+  nav .pending { color: var(--muted); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot.done { background: var(--done); } .dot.started { background: var(--started); } .dot.todo { background: var(--todo); }
+  main { flex: 1; max-width: 760px; padding: 32px 40px 80px; }
+  main h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  blockquote { margin: 12px 0; padding: 8px 16px; border-left: 3px solid var(--accent); background: var(--code-bg); border-radius: 0 8px 8px 0; }
+  pre { background: var(--code-bg); padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 14px; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+  pre code { padding: 0; background: none; }
+  .warn { background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .warn strong { color: var(--warn-border); }
+  @media (max-width: 700px) { .layout { flex-direction: column; } nav { width: auto; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <h1>SQL Window Functions</h1>
+  <div class="stage">Stage 1 — Foundations</div>
+  <a href="#windows-vs-group-by"><span class="dot done"></span>Windows vs GROUP BY</a>
+  <div class="pending"><span class="dot started"></span>Ranking ties ⚠️</div>
+  <div class="pending"><span class="dot todo"></span>Default frame (preview)</div>
+  <div class="stage">Stage 2 — Frames &amp; offsets</div>
+  <div class="pending"><span class="dot todo"></span>Frame clause · running totals · LAG/LEAD</div>
+  <div class="stage">Stage 3 — Applied patterns</div>
+  <div class="pending"><span class="dot todo"></span>Top-N · dedup · sessionization</div>
+</nav>
+<main>
+  <section id="windows-vs-group-by">
+    <h2>Windows vs GROUP BY · PARTITION BY / ORDER BY</h2>
+    <p class="meta">Consolidated 2026-08-01 · quiz 6.5/8 (~81%) · status: ✅ consolidated, 2 ⚠️ points</p>
+    <blockquote>"GROUP BY squashes the rows into one per group. A window function looks at the same group but <strong>leaves my rows alone</strong> — every order row stays, and the aggregate rides along as an extra column."</blockquote>
+    <p><code>OVER (PARTITION BY customer_id)</code> = "compute per customer, but don't collapse". <code>ORDER BY</code> inside <code>OVER</code> turns the window into a <em>sequence</em>; without it the window is just a bag.</p>
+    <h3>Worked example</h3>
+<pre><code>SELECT order_id, customer_id, amount,
+       SUM(amount) OVER (PARTITION BY customer_id)  AS customer_total,
+       ROW_NUMBER() OVER (PARTITION BY customer_id
+                          ORDER BY amount DESC)     AS rn
+FROM orders;</code></pre>
+    <p>Customer 101's 50.00 tie: <code>ROW_NUMBER</code> → (1, 2) · <code>RANK</code> → (1, 1, <strong>3</strong>) · <code>DENSE_RANK</code> → (1, 1, <strong>2</strong>).</p>
+    <h3>Insight</h3>
+    <p>HAVING filters <em>groups after collapsing</em>; a window filters <em>rows by a group-level fact</em> while keeping the rows — the whole reason top-N-per-group needs windows.</p>
+    <div class="warn"><strong>⚠️ Review:</strong> RANK counts <em>rows</em>, DENSE_RANK counts <em>distinct values</em> — predicted RANK's post-tie value wrong twice (session + quiz). Drill before Stage 2.</div>
+    <div class="warn"><strong>⚠️ Review:</strong> default frame with <code>ORDER BY</code> is <code>RANGE UNBOUNDED PRECEDING</code> — can repeat the phrase, can't yet explain the consequence. Stage 2 covers it.</div>
+    <p class="meta">Connects to: Stage 1 remaining practice (GROUP BY report rewrite) → Stage 3 top-N and dedup.</p>
+  </section>
+</main>
+</div>
+</body>
+</html>

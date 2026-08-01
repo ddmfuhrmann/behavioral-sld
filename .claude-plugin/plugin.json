@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "sld",
+  "displayName": "Behavioral SLD",
+  "version": "0.1.0",
+  "description": "Study-driven learning workflow: plan → learn → evaluate, with a staged progress checklist, socratic sessions, and consolidation in the learner's own vocabulary",
+  "author": {
+    "name": "Daniel Fuhrmann"
+  },
+  "homepage": "https://github.com/ddmfuhrmann/behavioral-sld",
+  "repository": "https://github.com/ddmfuhrmann/behavioral-sld",
+  "license": "MIT",
+  "keywords": ["learning", "study", "planning", "quiz", "socratic", "study-driven-learning", "sld"]
+}
