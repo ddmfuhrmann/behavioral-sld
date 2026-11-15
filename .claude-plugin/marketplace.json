@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "sld",
-      "description": "Study-driven learning workflow: plan → learn → evaluate, with a staged progress checklist, socratic sessions, and consolidation in the learner's own vocabulary",
+      "description": "Study-driven learning workflow: plan → learn → evaluate → review, with a staged progress checklist, socratic sessions, and consolidation in the learner's own vocabulary",
       "category": "learning",
       "source": {
         "source": "github",

@@ -18,6 +18,7 @@ This workflow was born in a real, timeboxed study lab on a dense technical subje
 /planner  →  interviews you, writes study/PLAN.md + study/progress.md
 /teacher  →  socratic sessions per topic, consolidates notes + index.html
 /evaluator →  quizzes, records results, promotes topics to consolidated
+/reviewer →  spaced batteries of fresh exercises on what is already consolidated
      ↳ misses and ⚠️ points feed back into the next teacher session
 ```
 
@@ -56,13 +57,14 @@ Updates only change the plugin's skills — your `study/` state files are never 
 | `planner` | Grill-me-style interview (goal, timebox, level, definition of "knowing", domain anchors) → staged curriculum + progress checklist |
 | `teacher` | Layered explanation, mandatory one-question-at-a-time socratic discussion, consolidation in the learner's vocabulary |
 | `evaluator` | Mixed-format quizzes (conceptual, exercise, applied scenarios on the plan's domain anchors), per-concept diagnosis |
+| `reviewer` | Spaced review: interleaved batteries over consolidated topics, picked by due date and past misses; keeps the schedule and demotes what faded |
 | `sld-conventions` | The contract: state files under `study/`, stage gates, hand-offs between skills |
 
 ## State files
 
-Everything lives under `study/` in your project: `PLAN.md`, `progress.md`, `notes/` (per-topic notes + a self-contained `index.html`), `quiz-history.md`, `backlog.md`.
+Everything lives under `study/` in your project: `PLAN.md`, `progress.md`, `notes/` (per-topic notes + a self-contained `index.html`), `quiz-history.md`, `review-history.md`, `backlog.md`.
 
-See [`examples/`](examples/) for a mockup of the full state after one planner → teacher → evaluator loop on a sample subject (SQL window functions).
+See [`examples/`](examples/) for a mockup of the full state after one planner → teacher → evaluator → reviewer loop on a sample subject (SQL window functions).
 
 ## License
 

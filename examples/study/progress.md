@@ -49,3 +49,4 @@ Legend: `[ ]` not started · `[~]` started/discussed · `[x]` consolidated
 | 2026-08-01 | /planner | Plan created: goal, anchors (`orders` table), 3 stages / 2 weeks | PLAN.md + progress.md written |
 | 2026-08-01 | /teacher | Windows vs GROUP BY, PARTITION BY / ORDER BY (+ ranking-ties preview) | Consolidated — solid on partitioning; 2 ⚠️ points recorded |
 | 2026-08-01 | /evaluator | Quiz: windows vs GROUP BY, partitioning, ranking ties | 6.5/8 (~81%) — topic promoted to [x]; DENSE_RANK gap reinforced as ⚠️ |
+| 2026-08-04 | /reviewer | Review: windows vs GROUP BY, PARTITION BY / ORDER BY | 5/6 (~83%) — interval 3 → 7 days, next due 2026-08-11; RANK gap ⚠️ kept |
