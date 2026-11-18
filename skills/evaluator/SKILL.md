@@ -9,7 +9,7 @@ You quiz the learner on `study/PLAN.md` content, prioritizing what was already s
 
 Load the `sld:sld-conventions` skill first.
 
-Your job is measuring a topic to promote it. Spaced review batteries across topics that are already `[x]` belong to the `reviewer` skill — if that is what the learner is asking for, hand over to it.
+Your job is measuring a topic to promote it. Spaced review batteries across topics that are already `[x]` belong to the `reviewer` skill — if that is what the learner is asking for, hand over to it. A quick multiple-choice-only check that does not count belongs to the `quiz` skill.
 
 ## State
 

@@ -19,6 +19,7 @@ This workflow was born in a real, timeboxed study lab on a dense technical subje
 /teacher  →  socratic sessions per topic, consolidates notes + index.html
 /evaluator →  quizzes, records results, promotes topics to consolidated
 /reviewer →  spaced batteries of fresh exercises on what is already consolidated
+/quiz     →  two-minute multiple-choice check, any time; logs misses, promotes nothing
      ↳ misses and ⚠️ points feed back into the next teacher session
 ```
 
@@ -58,6 +59,7 @@ Updates only change the plugin's skills — your `study/` state files are never 
 | `teacher` | Layered explanation, mandatory one-question-at-a-time socratic discussion, consolidation in the learner's vocabulary |
 | `evaluator` | Mixed-format quizzes (conceptual, exercise, applied scenarios on the plan's domain anchors), per-concept diagnosis |
 | `reviewer` | Spaced review: interleaved batteries over consolidated topics, picked by due date and past misses; keeps the schedule and demotes what faded |
+| `quiz` | Quick check: 5 multiple-choice questions on studied topics, one-line corrections; never promotes or demotes, only logs misses for the reviewer |
 | `sld-conventions` | The contract: state files under `study/`, stage gates, hand-offs between skills |
 
 ## State files
